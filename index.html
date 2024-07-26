@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
+    
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+ 
     <title>Elizabeth Kunz-- Undergraduate Researcher</title>
     <style>
         body {
@@ -22,7 +26,7 @@
             background-color: #f4f4f4;
         }
         header {
-            background-color: #253a4f;
+            background-color: #314e6b;
             color: #ecf0f1;
             text-align: center;
             padding: 1em;
@@ -84,23 +88,78 @@
         <h2>Research Experience</h2>
         <div class="research-item">
             <h3>Levenson-Falk Lab</h3>
-            <p>I have been working for the Levenson-Falk Lab since May 2024. The LFL uses superconducting circuits and devices to advance quantum computing. The LFL designs on-chip solutions to reduce noise and work towards fault tolerant qubits. </p>
-            <img src="lfl.png" style="width:700px;height:350px;">
+            <p>I have been working for the <a href="https://dornsife.usc.edu/lfl/">Levenson-Falk Lab</a> since May 2024. The LFL uses superconducting circuits to advance quantum computing and fundamental physics research. The LFL designs on-chip solutions to common problems in quantum computing with superconducting qubits. </p>
         </div>
+
+        <div class="w3-content w3-display-container">
+            <img class="mySlides1" src="lfl.png" style="width:700px;height:450px;">
+            <img class="mySlides1" src="bluefors.jpg" style="width:700px;height:450px;">
+            <img class="mySlides1" src="dopey.jpg" style="width:700px;height:450px;">
+          
+            <button class="w3-button w3-black w3-display-left" onclick="plusDivs1(-1)">&#10094;</button>
+            <button class="w3-button w3-black w3-display-right" onclick="plusDivs1(1)">&#10095;</button>
+        </div>
+          
+        <script>
+        var slideIndex1 = 1;
+        showDivs1(slideIndex1);
+        
+        function plusDivs1(n) {
+          showDivs1(slideIndex1 += n);
+        }
+        
+        function showDivs1(n) {
+          var i;
+          var x = document.getElementsByClassName("mySlides1");
+          if (n > x.length) {slideIndex1 = 1}
+          if (n < 1) {slideIndex1 = x.length}
+          for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";  
+          }
+          x[slideIndex1-1].style.display = "block";  
+        }
+        </script>
     </section>
 
     <section id="research">
-        <h2>Experience and Research Interests</h2>
+        <h2>Projects and Skills</h2>
         <div class="research-item">
             <h3>Simulating Superconducting Devices</h3>
-            <p>I worked on the SQuADDS database and simulation software, which provides a validated design database and simulation workflow software for superconducting qubit design. </p>
+            <p>I am a developer for the <a href="https://lfl-lab.github.io/SQuADDS/">SQuADDS</a> project, a validated design database and simulation workflow software for superconducting qubit design. </p>
             <img src="squadds.png" style="width:600px;height:310px;">
+            
         </div>
         <div class="research-item">
             <h3>Fabrication</h3>
-            <p>I fabricate  superconducting electronics for applications in quantum information science in the USC Nanofabrication Facilities. </p>
-            <img src="fab.jpg">
+            <p>I fabricate superconducting electronics for applications in quantum information science in the <a href= "https://nanofab.usc.edu/USC">USC Nanofabrication Facilities</a>. </p>
         </div>
+        <div class="w3-content w3-display-container">
+            <img class="mySlides2" src="fab.jpg" style="width:720px;height:430px;">
+            <img class="mySlides2" src="wirebonder.jpg" style="width:720px;height:430px;">
+            <img class="mySlides2" src="microscope.jpg" style="width:720px;height:430px;">
+          
+            <button class="w3-button w3-black w3-display-left" onclick="plusDivs2(-1)">&#10094;</button>
+            <button class="w3-button w3-black w3-display-right" onclick="plusDivs2(1)">&#10095;</button>
+        </div>
+        <script>
+          var slideIndex2 = 1;
+          showDivs2(slideIndex2);
+          
+          function plusDivs2(n) {
+            showDivs2(slideIndex2 += n);
+          }
+          
+          function showDivs2(n) {
+            var i;
+            var x = document.getElementsByClassName("mySlides2");
+            if (n > x.length) {slideIndex2 = 1}
+            if (n < 1) {slideIndex2 = x.length}
+            for (i = 0; i < x.length; i++) {
+              x[i].style.display = "none";  
+            }
+            x[slideIndex2-1].style.display = "block";  
+          }
+        </script>
     </section>
 
     
@@ -108,7 +167,7 @@
         <h2>Future Interests</h2>
         <div class="research-item">
             <h3>Quantum Error Correction </h3>
-            <p>I am interested in learning more about limiting decoherence and increase qubit fidelity. I would like to learn more about different sources of noise and how to model this noise. </p>
+            <p>I am interested in learning more about limiting decoherence and increasing qubit fidelity. I would like to learn more about different sources of noise and how to model this noise. </p>
         </div>
         <div class="research-item">
             <h3>Theory of Superconductivity</h3>
@@ -119,8 +178,9 @@
 
     <section id="contact">
         <h2>Contact</h2>
-        <p>Email: ekunz@usc.edu</p>
+        <p><a href="mailto:ekunz@usc.edu">ekunz@usc.edu</a></p>
         <img src="dornsife.png">
     </section>
+    <script src="script.js"></script>
 </body>
 </html>
