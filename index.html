@@ -9,40 +9,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Quattrocento+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
  
-    <title>Elizabeth Kunz-- Undergraduate Researcher</title>
+    <title>elizabeth kunz-- Undergraduate Researcher</title>
     <style>
         body {
 
             
-            font-family: 'Nunito Sans', sans-serif;
+            font-family: 'Quattrocento Sans', sans-serif;
             line-height: 1.6;
             color: #333;
             max-width: 800px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 15px;
             background-color: #f4f4f4;
+            font-size: 25px;
+            
         }
         header {
+            font-family: 'Quattrocento Sans', sans-serif;
             background-color: #314e6b;
             color: #ecf0f1;
             text-align: center;
             padding: 1em;
             margin-bottom: 20px;
+
+            
         }
         h1 {
+            font-family: 'Quattrocento Sans', sans-serif;
             margin: 0;
+            font-weight: bold;
+            font-size: 2.5rem;
         }
-        nav {
-            margin-top: 10px;
-        }
-        nav a {
-            color: #ecf0f1;
-            text-decoration: none;
-            margin: 0 10px;
-        }
+        nav .nav-link {
+                color: #ecf0f1;
+                text-decoration: none;
+                margin: 0 10px;
+                transition: color 0.3s ease; 
+            }
+
+        nav .nav-link:hover {
+                color: #bdc3c7;
+                font-weight: bold ;
+
+
+            }
         section {
             background-color: white;
             padding: 20px;
@@ -51,6 +67,7 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
         h2 {
+            font-family: 'Quattrocento Sans', sans-serif;
             color: #2c3e50;
             border-bottom: 2px solid #3498db;
             padding-bottom: 10px;
@@ -59,29 +76,154 @@
             margin-bottom: 15px;
         }
         .research-item h3 {
+            font-family: 'Quattrocento Sans', sans-serif;
             color: #3498db;
             margin-bottom: 5px;
+            font-weight: bold;
         }
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        img.profile-photo {
+            border-radius: 50%;
+            width: 200px;
+            height: 210px;
+        }
+
+
     </style>
+    
 </head>
 <body>
+    <canvas id="background-canvas"></canvas>
+    <script>
+        const canvas = document.getElementById('background-canvas');
+        const ctx = canvas.getContext('2d');
+        
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        const particlesArray = [];
+        const numberOfParticles = 150;
+        const connectDistance = 170;
+        
+        let mouse = {
+            x: null,
+            y: null,
+            radius: 150
+        }
+        
+        window.addEventListener('mousemove', function(event) {
+            mouse.x = event.x;
+            mouse.y = event.y;
+        });
+        
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = 9;
+                this.speedX = Math.random() * 1 - 0.5; 
+                this.speedY = Math.random() * 1 - 0.5; 
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                
+                if (this.x > canvas.width || this.x < 0) {
+                    this.speedX = -this.speedX;
+                }
+                if (this.y > canvas.height || this.y < 0) {
+                    this.speedY = -this.speedY;
+                }
+            }
+            draw() {
+                ctx.fillStyle = 'rgba(32, 90, 154, 0.14)'; 
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+        
+        function init() {
+            for (let i = 0; i < numberOfParticles; i++) {
+                particlesArray.push(new Particle());
+            }
+        }
+        
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+                particlesArray[i].draw();
+                
+                for (let j = i; j < particlesArray.length; j++) {
+                    const dx = particlesArray[i].x - particlesArray[j].x;
+                    const dy = particlesArray[i].y - particlesArray[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (distance < connectDistance) {
+                        ctx.strokeStyle = 'rgba(128, 128, 128, ' + (1 - distance/connectDistance) + ')';
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
+                        ctx.lineTo(particlesArray[j].x, particlesArray[j].y);
+                        ctx.stroke();
+                    }
+                }
+                
+                if (mouse.x != null && mouse.y != null) {
+                    const dx = particlesArray[i].x - mouse.x;
+                    const dy = particlesArray[i].y - mouse.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance < mouse.radius) {
+                        ctx.strokeStyle = 'rgba(128, 128, 128, ' + (1 - distance/mouse.radius) + ')';
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
+                        ctx.lineTo(mouse.x, mouse.y);
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animate);
+        }
+        
+        init();
+        animate();
+        
+        window.addEventListener('resize', function() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            init();
+        });
+        </script>
     <header>
-        <img src ="photo.jpg" alt = "Profile Photo." style="width:200px;height:210px;">
+
+        <img src ="images/photo.jpg" alt = "Profile Photo." style="width:200px;height:210px;" class="profile-photo">
+
         <h1>Elizabeth Kunz</h1>
-        <p>Undergraduate Researcher at USC</p>
+        <p>Undergraduate Researcher at USC </p>
 
         <nav>
-            <a href="#about">About</a>
-            <a href="#research">Research</a>
-            <a href="#experience">Experience</a>
-            <a href="#interests">Future Interests</a>
-            <a href="#contact">Contact</a>
+            <a href="#about" class="nav-link">About</a>
+            <a href="#experience" class="nav-link">Experience</a>
+            <a href="#research" class="nav-link">Projects</a>
+            <a href="#interests" class="nav-link">Future Interests</a>
+            <a href="#contact" class="nav-link">Contact</a>
+            <a href="blog.html" class="nav-link">Blog</a>
+            <a href="resources.html" class="nav-link">Resources</a>
         </nav>
     </header>
 
     <section id="about">
         <h2>About Me</h2>
-        <p>I am an undergraduate student studying Physics and Math at the University of Southern California. I’m currently doing research in quantum computing, specifically in simulating and fabricating nanoscale superconducting devices. I am interested in further exploring the fields of quantum computing, quantum information, and open quantum systems. </p>
+        <p>I am an undergraduate student studying Physics and Math at the University of Southern California. I’m currently doing research in quantum computing, specifically in simulating and fabricating nanoscale superconducting devices. I am interested in further exploring the fields of quantum computing, quantum information, and open quantum systems. I hope to pursue a PhD in physics after completing my undergraduate degree. </p>
     </section>
 
     <section id="experience">
@@ -92,9 +234,9 @@
         </div>
 
         <div class="w3-content w3-display-container">
-            <img class="mySlides1" src="lfl.png" style="width:700px;height:450px;">
-            <img class="mySlides1" src="bluefors.jpg" style="width:700px;height:450px;">
-            <img class="mySlides1" src="dopey.jpg" style="width:700px;height:450px;">
+            <img class="mySlides1" src="images/lfl.png" style="width:700px;height:450px;">
+            <img class="mySlides1" src="images/bluefors.jpg" style="width:700px;height:450px;">
+            <img class="mySlides1" src="images/dopey.jpg" style="width:700px;height:450px;">
           
             <button class="w3-button w3-black w3-display-left" onclick="plusDivs1(-1)">&#10094;</button>
             <button class="w3-button w3-black w3-display-right" onclick="plusDivs1(1)">&#10095;</button>
@@ -126,7 +268,7 @@
         <div class="research-item">
             <h3>Simulating Superconducting Devices</h3>
             <p>I am a developer for the <a href="https://lfl-lab.github.io/SQuADDS/">SQuADDS</a> project, a validated design database and simulation workflow software for superconducting qubit design. </p>
-            <img src="squadds.png" style="width:600px;height:310px;">
+            <img src="images/squadds.png" style="width:600px;height:310px;">
             
         </div>
         <div class="research-item">
@@ -134,9 +276,9 @@
             <p>I fabricate superconducting electronics for applications in quantum information science in the <a href= "https://nanofab.usc.edu/USC">USC Nanofabrication Facilities</a>. </p>
         </div>
         <div class="w3-content w3-display-container">
-            <img class="mySlides2" src="fab.jpg" style="width:720px;height:430px;">
-            <img class="mySlides2" src="wirebonder.jpg" style="width:720px;height:430px;">
-            <img class="mySlides2" src="microscope.jpg" style="width:720px;height:430px;">
+            <img class="mySlides2" src="images/fab.jpg" style="width:720px;height:430px;">
+            <img class="mySlides2" src="images/wirebonder.jpg" style="width:720px;height:430px;">
+            <img class="mySlides2" src="images/microscope.jpg" style="width:720px;height:430px;">
           
             <button class="w3-button w3-black w3-display-left" onclick="plusDivs2(-1)">&#10094;</button>
             <button class="w3-button w3-black w3-display-right" onclick="plusDivs2(1)">&#10095;</button>
@@ -167,11 +309,15 @@
         <h2>Future Interests</h2>
         <div class="research-item">
             <h3>Quantum Error Correction </h3>
-            <p>I am interested in learning more about limiting decoherence and increasing qubit fidelity. I would like to learn more about different sources of noise and how to model this noise. </p>
+            <p> I would like to learn more about characterizing and modeling different sources of noise. I'm also curious about methods of hybrid error correction. </p>
         </div>
         <div class="research-item">
             <h3>Theory of Superconductivity</h3>
-           
+            <p>I am interested in exploring future possibilities in improving existing superconductors, developing room temperature superconductors, and exploring properties of superconductors such as vorticies</p>
+        </div>
+        <div class="research-item">
+            <h3>Quantum Algorithmns  </h3>
+            <p> I am interested in </p>
         </div>
     </section>
 
@@ -179,7 +325,14 @@
     <section id="contact">
         <h2>Contact</h2>
         <p><a href="mailto:ekunz@usc.edu">ekunz@usc.edu</a></p>
-        <img src="dornsife.png">
+        <img src="images/dornsife.png" style="width: 300px;height:130px;">
+    </section>
+    <script src="script.js"></script>
+
+
+    
+    <section id="End">
+        <p>This website is currently in development. Please reach out if you encounter any issues.</p>
     </section>
     <script src="script.js"></script>
 </body>
