@@ -89,6 +89,11 @@
             height: 100%;
             z-index: -1;
         }
+        img.profile-photo {
+            border-radius: 50%;
+            width: 200px;
+            height: 210px;
+        }
 
 
     </style>
@@ -198,31 +203,56 @@
         });
         </script>
     <header>
-        <img src ="photo.jpg" alt = "Profile Photo." style="width:200px;height:210px;">
-        <h1>elizabeth kunz</h1>
-        <p>undergraduate researcher, usc</p>
+        <img src ="images/photo.jpg" alt = "Profile Photo." style="width:200px;height:210px;" class="profile-photo">
+        <h1>Elizabeth Kunz</h1>
+        <p>Undergraduate Researcher at USC</p>
         <nav>
-            <a href="blog.html"  class="nav-link">Blog</a>
-            <a href="index.html"  class="nav-link">Main</a>
+            <a href="index.html" class="nav-link">About</a>
+            <a href="blog.html" class="nav-link">Blog</a>
+            <a href="resources.html" class="nav-link">Resources</a>
         </nav>
     </header>
-
-    <section id="interesting-papers">
-        <h2>Some of my favorite physics YouTube videos</h2>
-        <ul>
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/mm3I4m8YsnM?si=_WwH97QjibsUC7Gt" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-            <li><a href="https://www.youtube.com/watch?v=HeQX2HjkcNo&t=1822s">Math's Fundamental Flaw</a></li>
-            <li><a href="https://www.youtube.com/watch?v=AaZ_RSt0KP8&t=57s">The Universe is Hostile to Computers</a></li>
-            <li><a href="https://www.youtube.com/watch?v=CbYFanAGsSM">Deriving the Dirac Equation</a></li>
-            <li><a href="https://www.youtube.com/watch?v=b7OIbMCIfs4&t=651s">The Mystery of Spinors</a></li>
-          
-        </ul>
 
     <section id="papers">
         <h2>Papers that helped me learn about quantum computing</h2>
         <ul>
-            <li><a href="https://arxiv.org/abs/1904.06560">A Quantum Engineer's Guide to Superconducting Qubits</li>
+            <li>
+                <a href="https://arxiv.org/abs/1904.06560">A Quantum Engineer's Guide to Superconducting Qubits</a>
+                <p>This is a great introduction to quantum hardware, focused on superconducting qubits. Additionally, it provides a great intuitive explanation of major sources of noise and decoherence, and techniques to mitigate error. Finally, it describes the readout process and qubit control.</p>
+            </li>
+            <li>
+                <a href="https://arxiv.org/abs/1611.02427">Quantum Sensing</a>
+                <p>This paper provides an introduction to quantum sensing, from the basic properties of quantum sensors to how they are used in a lab setting. The paper covers noise spectroscopy, dynamic range, and sensitivity.</p>
+            </li>
         </ul>
+        <h2>A great introduction to quantum computing</h2>
+        <ul>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?si=N2l1lScaTODjoY49&amp;list=PLOFEBzvs-Vvo5o97bYt8o1l8Ra1poMASQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </ul>
+    </section>
+
+    
+    
+
+    <section id="youtube-physics">
+        
+        <h2>Some of my favorite physics YouTube videos</h2>
+        <ul>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/mm3I4m8YsnM?si=_WwH97QjibsUC7Gt" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/AaZ_RSt0KP8?si=QVnazqhwiWSBq8GA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/6akmv1bsz1M?si=CgQLR-WSkQnvpFL2" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/CbYFanAGsSM?si=m93-uKS9lKUztdXf" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </ul>
+        <h2>Some of my favorite math YouTube videos</h2>
+        <ul>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/HeQX2HjkcNo?si=fHsCHXd_2CkfRxZg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/aDU-oTiHnCs?si=6GU41oLepz88Dg7Y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/mH0oCDa74tE?si=MKNtyPkkONSe-3zi" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </ul>
+
+
+
+
 
 
     </section>
