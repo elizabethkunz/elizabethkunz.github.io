@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Research Updates – Elizabeth Kunz </title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <h1>Research Updates</h1>
+    <p>News and updates on my research</p>
+  </header>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="research-updates.html">Research Updates</a>
+    <a href="fun-stuff.html">More</a>
+    <a href="mailto:ekunz@usc.edu">Contact</a>
+  </nav>
+
+  <main>
+    <div class="tags">
+      <strong>Filter by tag:</strong>
+      <button class="tag-button active" onclick="filterPosts('all')">All</button>
+      <button class="tag-button" onclick="filterPosts('simulation')">Simulation</button>
+      <button class="tag-button" onclick="filterPosts('hardware')">Hardware & Fabrication</button>
+      <button class="tag-button" onclick="filterPosts('conferences')">Conferences</button>
+      <button class="tag-button" onclick="filterPosts('awards')">Awards</button>
+    </div>
+   
+
+    <div id="posts-container"></div>
+  </main>
+
+  <footer>
+    &copy; 2025 Elizabeth Kunz | Research updates
+  </footer>
+
+  <script>
+    const posts = [
+    {
+        title: "Quantum Device Workshop",
+        date: "May 28, 2025",
+        tags: ["conferences", "simulation", "hardware"],
+        content: `
+         I enjoyed attending the inagural <a href="https://qdw-ucla.squarespace.com">Quantum Devices Workshop</a> at UCLA this May. I had the chance to hear talks from industry and academic researchers in superconducting hardware. 
+         It was a great experience, and I'm thankful for the planning team at QCSA for making this conference happen.
+        <br><br>
+        <img src="images/qdw.jpg" alt="Quantum Device Workshop Group Photo" style="max-width:100%; border-radius:6px; margin:1rem 0;" />
+        `
+      },
+
+            {
+        title: "APS March Meeting 2025",
+        date: "May 17, 2025",
+        tags: ["simulation", "conferences", "awards"],
+        content: `
+            This semester, I was honored to receive a <a href="https://www.aps.org/events/future-physics-days">Top Presenter Award</a> at the American Physical Society Global Summit for my poster about research with Professor Eli Levenson-Falk at University of Southern California! This research is about improving the simulation pipeline for superconducting quantum devices. 
+            <br><br>
+            In quantum circuit design, electromagnetic (EM) simulations are typically required at many steps of the design process. This is both computationally intensive and time-consuming. Instead, lumped oscillator models (LOMs) can streamline the process by using capacitance values obtained from individual circuit element simulations, as opposed to full-device simulations for each design iteration. My work tests the accuracy of different LOMs in predicting certain parameters, such as resonant frequency. This work is part of a broader effort to streamline the process from knowing a target device Hamiltonian to building a corresponding design. 
+            <br><br>
+            I’m also happy to be selected as one of 130 <a href="https://www.aps.org/about/news/2025/05/student-ambassadors-cohort-2025">APS Student Ambassadors</a> in the 2025-2026 cohort. I am excited to continue this research in the coming year!
+            <img src="images/march-meeting.jpeg" alt="March Meeting Poster" style="max-width:100%; border-radius:6px; margin:1rem 0;" />
+            `
+            
+      },
+      
+      {
+        title: "Zone 18 Meeting",
+        date: "April 7, 2025",
+        tags: ["conferences", "awards"],
+        content: `
+         I just finished planning the weekend-long Society of Physics Students' <a href="https://students.aip.org/chapter-resources/zone-meetings">Zone 18 Meeting</a>, which was hosted at USC this year. Co-leading this conference was a wonderful opportunity to bring together the Zone 18 section of SPS, which includes chapters
+         from California, Nevada, and Hawaii. Seeing everything come together and getting to meet fellow undergrads from schools across California was a highlight of my semester.
+        <br><br>
+        I was also honored to have earned the 'Outstanding Leadership and Service Award', issued by the USC Department of Physics and Astronomy, for organizing this conference.
+        <img src="images/zone-18.jpg" alt="Zone 18 Planning Committee" style="max-width:100%; border-radius:6px; margin:1rem 0;" />
+        `
+      },
+
+      {
+        title: "CuW*P at Cal Poly, Slo",
+        date: "January 27, 2025",
+        tags: ["hardware", "conferences"],
+        content: `
+          This weekend, I had the opportunity to present my work at the Levenson-Falk Lab on fabricating superconducting devices for quantum computing at CU*iP 2025 in Cal Poly SLO!
+        <br><br>
+        In my talk, I gave an overview of the physics behind superconducting qubits and discussed my work in fabricating devices that can be used for quantum computing. These devices, fabricated under the guidance of Daria Kowsari, Sadman Ahmed Shanto, and Vivek Maurya, aim to address current challenges in the field, such as relaxation and noise in the system. 
+        <br><br>
+        I also had a great time speaking with other student researchers interested in quantum computing and quantum information.
+        <img src="images/cuwip.jpg" alt="Speaking at CUW*P" style="max-width:100%; border-radius:6px; margin:1rem 0;" />
+        `
+      },
+    ];
+
+    function renderPosts(filter) {
+      const container = document.getElementById("posts-container");
+      container.innerHTML = "";
+
+      const filtered = filter === "all"
+        ? posts
+        : posts.filter(post => post.tags.includes(filter));
+
+      if (filtered.length === 0) {
+        container.innerHTML = "<p>No posts match this tag.</p>";
+        return;
+      }
+
+      filtered.forEach(post => {
+        const article = document.createElement("article");
+
+        article.innerHTML = `
+          <h2>${post.title}</h2>
+          <div class="date">Last updated: ${post.date}</div>
+          <p>${post.content}</p>
+          <div class="post-tags">Tags: ${post.tags.join(", ")}</div>
+        `;
+
+        container.appendChild(article);
+      });
+    }
+
+    function filterPosts(tag) {
+      document.querySelectorAll(".tag-button").forEach(btn =>
+        btn.classList.remove("active")
+      );
+      const clicked = [...document.querySelectorAll(".tag-button")].find(
+        btn => btn.textContent.toLowerCase() === tag.toLowerCase() || (tag === 'all' && btn.textContent === 'All')
+      );
+      if (clicked) clicked.classList.add("active");
+
+      renderPosts(tag);
+    }
+
+    // Initial render
+    renderPosts("all");
+  </script>
+
+</body>
+</html>

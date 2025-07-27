@@ -1,344 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Quattrocento+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
- 
-    <title>Elizabeth Kunz</title>
-    <style>
-        body {
-
-            
-            font-family: 'Quattrocento Sans', sans-serif;
-            line-height: 1.6;
-            color: #333;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 15px;
-            background-color: #f4f4f4;
-            font-size: 25px;
-            
-        }
-        header {
-            font-family: 'Quattrocento Sans', sans-serif;
-            background-color: #314e6b;
-            color: #ecf0f1;
-            text-align: center;
-            padding: 1em;
-            margin-bottom: 20px;
-
-            
-        }
-        h1 {
-            font-family: 'Quattrocento Sans', sans-serif;
-            margin: 0;
-            font-weight: bold;
-            font-size: 2.5rem;
-        }
-        nav .nav-link {
-                color: #ecf0f1;
-                text-decoration: none;
-                margin: 0 10px;
-                transition: color 0.3s ease; 
-            }
-
-        nav .nav-link:hover {
-                color: #bdc3c7;
-                font-weight: bold ;
-
-
-            }
-        section {
-
-            background-color: white;
-            padding: 20px;
-            margin-bottom: 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        h2 {
-            font-family: 'Quattrocento Sans', sans-serif;
-            color: #2c3e50;
-            border-bottom: 2px solid #3498db;
-            padding-bottom: 10px;
-        }
-        .research-item {
-            font-family: 'Quattrocento Sans', sans-serif;
-            margin-bottom: 15px;
-        }
-        .research-item h3 {
-            font-family: 'Quattrocento Sans', sans-serif;
-            color: #3498db;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-        canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-        }
-        img.profile-photo {
-            border-radius: 50%;
-            width: 200px;
-            height: 210px;
-        }
-
-
-    </style>
-    
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=PT+Serif:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+  <title>Elizabeth Kunz – Academic Website</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <canvas id="background-canvas"></canvas>
-    <script>
-        const canvas = document.getElementById('background-canvas');
-        const ctx = canvas.getContext('2d');
-        
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        
-        const particlesArray = [];
-        const numberOfParticles = 150;
-        const connectDistance = 170;
-        
-        let mouse = {
-            x: null,
-            y: null,
-            radius: 150
-        }
-        
-        window.addEventListener('mousemove', function(event) {
-            mouse.x = event.x;
-            mouse.y = event.y;
-        });
-        
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = 9;
-                this.speedX = Math.random() * 1 - 0.5; 
-                this.speedY = Math.random() * 1 - 0.5; 
-            }
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                
-                if (this.x > canvas.width || this.x < 0) {
-                    this.speedX = -this.speedX;
-                }
-                if (this.y > canvas.height || this.y < 0) {
-                    this.speedY = -this.speedY;
-                }
-            }
-            draw() {
-                ctx.fillStyle = 'rgba(32, 90, 154, 0.14)'; 
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
-        
-        function init() {
-            for (let i = 0; i < numberOfParticles; i++) {
-                particlesArray.push(new Particle());
-            }
-        }
-        
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for (let i = 0; i < particlesArray.length; i++) {
-                particlesArray[i].update();
-                particlesArray[i].draw();
-                
-                for (let j = i; j < particlesArray.length; j++) {
-                    const dx = particlesArray[i].x - particlesArray[j].x;
-                    const dy = particlesArray[i].y - particlesArray[j].y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-                    
-                    if (distance < connectDistance) {
-                        ctx.strokeStyle = 'rgba(128, 128, 128, ' + (1 - distance/connectDistance) + ')';
-                        ctx.lineWidth = 1;
-                        ctx.beginPath();
-                        ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
-                        ctx.lineTo(particlesArray[j].x, particlesArray[j].y);
-                        ctx.stroke();
-                    }
-                }
-                
-                if (mouse.x != null && mouse.y != null) {
-                    const dx = particlesArray[i].x - mouse.x;
-                    const dy = particlesArray[i].y - mouse.y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-                    if (distance < mouse.radius) {
-                        ctx.strokeStyle = 'rgba(128, 128, 128, ' + (1 - distance/mouse.radius) + ')';
-                        ctx.lineWidth = 1;
-                        ctx.beginPath();
-                        ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
-                        ctx.lineTo(mouse.x, mouse.y);
-                        ctx.stroke();
-                    }
-                }
-            }
-            requestAnimationFrame(animate);
-        }
-        
-        init();
-        animate();
-        
-        window.addEventListener('resize', function() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            init();
-        });
-        </script>
-    <header>
+  <header>
 
-        <img src ="images/photo.jpg" alt = "Profile Photo." style="width:200px;height:210px;" class="profile-photo">
+    <h1>Elizabeth Kunz </h1>
+    <p> Undergraduate Researcher | Physics | USC</p>
+  </header>
 
-        <h1>Elizabeth Kunz</h1>
-        <p>Undergraduate Researcher at USC </p>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="research-updates.html">Research Updates</a>
+    <a href="fun-stuff.html">More</a>
+    <a href="mailto:ekunz@usc.edu">Contact</a>
+  </nav>
 
-        <nav>
-            <a href="index.html" class="nav-link">About</a>
-            <a href="blog.html" class="nav-link">Blog</a>
-            <a href="resources.html" class="nav-link">Resources</a>
-        </nav>
-    </header>
-
+  <main>
     <section id="about">
-        <h2>About Me</h2>
-        <p>I am an undergraduate student studying Physics and Math at the University of Southern California. I’m currently doing research in quantum computing, specifically in simulating and fabricating nanoscale superconducting devices. I am interested in further exploring the fields of quantum computing, quantum information, and open quantum systems. I hope to pursue a PhD in physics after completing my undergraduate degree. </p>
-        <div class="research-item">
-            <h3>Posters</h3>
-            <p> "Testing modularity and scaling in electromagnetic simulations of superconducting quantum devices" -- APS Global Summit (Upcoming, March '25)</p>
-            <p> "Fabricating Quantum Devices"-- APS CuW*P at Cal Poly SLO (Upcoming, January '25)</p>
-            <h3>Talks</h3>
-            <p>"Superconducting Quantum Hardware"-- USC Physics Undergraduate Research Retreat (November '24)</p>
-        </div>
-    </div>
-    </section>
-
-    <section id="experience">
-        <h2>Research Experience</h2>
-        <div class="research-item">
-            <h3>Levenson-Falk Lab</h3>
-            <p>I have been working for the <a href="https://dornsife.usc.edu/lfl/">Levenson-Falk Lab</a> since May 2024. The LFL uses superconducting circuits to advance quantum computing and fundamental physics research. The LFL designs on-chip solutions to common problems in quantum computing with superconducting qubits. </p>
-        </div>
-
-        <div class="w3-content w3-display-container">
-            <img class="mySlides1" src="images/lfl.png" style="width:700px;height:450px;">
-            <img class="mySlides1" src="images/bluefors.jpg" style="width:700px;height:450px;">
-            <img class="mySlides1" src="images/dopey.jpg" style="width:700px;height:450px;">
-          
-            <button class="w3-button w3-black w3-display-left" onclick="plusDivs1(-1)">&#10094;</button>
-            <button class="w3-button w3-black w3-display-right" onclick="plusDivs1(1)">&#10095;</button>
-        </div>
-        <script>
-        var slideIndex1 = 1;
-        showDivs1(slideIndex1);
-        
-        function plusDivs1(n) {
-          showDivs1(slideIndex1 += n);
-        }
-        
-        function showDivs1(n) {
-          var i;
-          var x = document.getElementsByClassName("mySlides1");
-          if (n > x.length) {slideIndex1 = 1}
-          if (n < 1) {slideIndex1 = x.length}
-          for (i = 0; i < x.length; i++) {
-            x[i].style.display = "none";  
-          }
-          x[slideIndex1-1].style.display = "block";  
-        }
-        </script>
+      <h2>About</h2>
+      <p>I am an undergraduate at USC studying physics. I’m currently doing research in <b>superconducting quantum hardware</b>, specifically in simulating, designing and fabricating nanoscale superconducting devices. I am interested in further exploring the fields of quantum computing and information, condensed matter, and open quantum systems.
+      </p>
+      <p><a href="research-updates.html">See Research Blog →</a></p>
     </section>
 
     <section id="research">
-        <h2>Projects and Skills</h2>
-        <div class="research-item">
-            <h3>Simulating Superconducting Devices</h3>
-            <p>I am a developer for the <a href="https://lfl-lab.github.io/SQuADDS/">SQuADDS</a> project, a validated design database and simulation workflow software for superconducting qubit design. </p>
-            <img src="images/squadds.png" style="width:600px;height:310px;">
-            
-        </div>
-        <div class="research-item">
-            <h3>Fabrication</h3>
-            <p>I fabricate superconducting electronics for applications in quantum information science in the <a href= "https://nanofab.usc.edu/USC">USC Nanofabrication Facilities</a>. </p>
-        </div>
-        <div class="w3-content w3-display-container">
-            <img class="mySlides2" src="images/fab.jpg" style="width:720px;height:430px;">
-            <img class="mySlides2" src="images/wirebonder.jpg" style="width:720px;height:430px;">
-            <img class="mySlides2" src="images/microscope.jpg" style="width:720px;height:430px;">
-          
-            <button class="w3-button w3-black w3-display-left" onclick="plusDivs2(-1)">&#10094;</button>
-            <button class="w3-button w3-black w3-display-right" onclick="plusDivs2(1)">&#10095;</button>
-        </div>
-        <script>
-          var slideIndex2 = 1;
-          showDivs2(slideIndex2);
-          
-          function plusDivs2(n) {
-            showDivs2(slideIndex2 += n);
-          }
-          
-          function showDivs2(n) {
-            var i;
-            var x = document.getElementsByClassName("mySlides2");
-            if (n > x.length) {slideIndex2 = 1}
-            if (n < 1) {slideIndex2 = x.length}
-            for (i = 0; i < x.length; i++) {
-              x[i].style.display = "none";  
-            }
-            x[slideIndex2-1].style.display = "block";  
-          }
-        </script>
+      <h2>Research</h2>
+      <p>I have been working for the Levenson-Falk Lab since May 2024. The LFL uses superconducting circuits to advance quantum computing and fundamental physics research. The LFL designs on-chip solutions to common problems in quantum computing with superconducting qubits.
+      <p>
+        I am a developer for the <a href="https://github.com/LFL-Lab/SQuADDS">SQuADDS</a> project, a validated design database and simulation workflow software for superconducting qubit design.
+      <p>
+
+    Previous to working on SQuADDS, I fabricate superconducting electronics for applications in quantum information science at the <a href="https://nanofab.usc.edu">John O'Brien Nanofabrication Laboratory</a> at USC.
+      </p>
+        <p><a href="https://dornsife.usc.edu/lfl/">See LFL →</a></p>
+      
+    </ul>
+      
     </section>
 
-    
-    <section id="interests">
-        <h2>Future Interests</h2>
-        <div class="research-item">
-            <h3>Quantum Information </h3>
-            <p> I'm interested in the nature of quantum information and sources of noise and decoherence in quantum systems, from quasiparticles to dissipation in the system. I'm interested in developing strategies for information preservation. I would like to use this knowledge to enhancing coherence times in quantum devices and work towards fault-tolerant quantum devices. </p>
-        </div>
-        <div class="research-item">
-            <h3>Quantum Sensing</h3>
-            <p> I'm interested in exploring how quantum devices can be used to achieve highly precise measurements that beat classical systems. I'm most interested in applications of sensing such as precision measurement, gravitational wave detection, and magnetic field imaging. </p>
-        </div>
-        <div class="research-item">
-            <h3>Quantum Algorithms</h3>
-            <p> I am interested in developing new quantum algorithms to tackle problems such as optimization and cryptography </p>
-        </div>
+    <section id="talks">
+      <h2>Posters</h2>
+      <ul>
+        <li><strong>Testing modularity and scaling in electromagnetic simulations of superconducting quantum devices</strong>, <em>APS Global Summit</em>, 2025</li>
+      </ul>
+      <h2>Talks</h2>
+      <ul>
+        <li><strong>Fabricating Quantum Devices</strong>, <em>CuW*P</em>, 2025</li>
+        <li><strong>Superconducting Quantum Hardware </strong>, <em>USC Physics Undergraduate Retreat</em>, 2024</li>
+      </ul>
     </section>
+  
 
+    <!-- <section id="publications">
+      <h2>Publications</h2>
+      <ul>
+        <li><strong>Quantum jumps in driven qubit systems</strong>, <em>PRL</em>, 2024</li>
+        <li><strong>Effective models for nonlinear readout</strong>, <em>Nature Physics</em>, 2023</li>
+        <li><strong>Engineering coherence with hybrid transmon-fluxonium devices</strong>, <em>APS March Meeting</em>, 2022</li>
+      </ul>
+    </section> -->
 
     <section id="contact">
-        <h2>Contact</h2>
-        <p><a href="mailto:ekunz@usc.edu">ekunz@usc.edu</a></p>
-        <img src="images/dornsife.png" style="width: 300px;height:130px;">
+      <h2>Contact</h2>
+      <p>Email: ekunz@usc.edu</p>
+      <!-- <p>Office: Physics & Astronomy Building, Room 204</p> -->
+      <p><a href="https://github.com/elizabethkunz">GitHub</a> | <a href="https://www.linkedin.com/in/ekunz7/">LinkedIn</a></p>
     </section>
-    <script src="script.js"></script>
+  </main>
 
-
-    
-    <section id="End">
-        <p>This website is currently in development. Please reach out if you encounter any issues.</p>
-    </section>
-    <script src="script.js"></script>
+  <footer>
+    &copy; 2025 Elizabeth Kunz | All rights reserved
+  </footer>
 </body>
 </html>
