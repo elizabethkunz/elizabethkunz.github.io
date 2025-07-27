@@ -291,3 +291,46 @@
   pointer-events: none;
   text-align: center;
 }
+
+.photo-gallery-container {
+  max-width: 1000px; /* match fun-stuff page */
+  margin: 2rem auto;
+  padding: 0 1rem;
+  font-family: 'Inter', sans-serif;
+}
+
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.2rem;
+}
+
+.photo-grid img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: auto;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.photo-grid img:hover {
+  transform: scale(1.02);
+  filter: brightness(85%);
+}
+
+.photo-caption {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Rubik', sans-serif;
+  font-size: 1.2rem;
+  color: #fff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  text-align: center;
+}
